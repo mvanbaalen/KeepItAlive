@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/discover_menu.gd" type="Script" id=1]
+
+[node name="DiscoverMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 376.0
+margin_top = 266.0
+margin_right = 550.0
+margin_bottom = 335.0
+text = "Continue"
+[connection signal="pressed" from="Button" to="." method="_on_continue_button_pressed"]
