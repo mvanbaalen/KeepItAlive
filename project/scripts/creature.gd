@@ -11,12 +11,18 @@ var eats
 var number setget set_number
 
 func _init():
-	size = SIZE.SMALL
-	type = TYPE.PLANT
-	eats = TYPE.PLANT
 	number = randi() % 2000 + 9000
 	name = Helpers.generate_name()
 
+func set_properties(new_size, new_type, new_eats):
+	size = new_size
+	type = new_type
+	eats = new_eats
+
+func randomize_properties():
+	set_properties(Helpers.random_type(SIZE),
+					Helpers.random_type(TYPE),
+					Helpers.random_type(TYPE))
 
 func set_number(new_value):
 	number = new_value
