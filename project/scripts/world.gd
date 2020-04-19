@@ -3,6 +3,7 @@ extends Node
 onready var creature_class = preload("res://scripts/creature.gd")
 onready var life = []
 onready var planet_name = ""
+onready var year = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

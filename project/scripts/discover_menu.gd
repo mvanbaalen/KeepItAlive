@@ -18,4 +18,5 @@ func _ready():
 
 
 func _on_continue_button_pressed():
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/Game.tscn")

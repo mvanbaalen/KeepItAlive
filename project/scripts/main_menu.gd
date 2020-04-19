@@ -21,4 +21,5 @@ func _on_exit_button_pressed():
 
 
 func _on_discover_button_pressed():
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/DiscoverMenu.tscn")

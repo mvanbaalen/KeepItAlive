@@ -5,6 +5,8 @@
 [node name="Game" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 1.36038
+margin_bottom = 1.36035
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -12,11 +14,70 @@ __meta__ = {
 
 [node name="Panel" type="Panel" parent="."]
 anchor_bottom = 1.0
-margin_right = 126.0
+margin_right = 201.0
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="Creatures" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+margin_right = 201.0
+margin_bottom = 14.0
+text = "Life"
+
+[node name="Creatures" type="VBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 18.0
+margin_right = 201.0
+margin_bottom = 18.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel2" type="Panel" parent="."]
+margin_left = 236.0
+margin_top = 1.0
+margin_right = 799.0
+margin_bottom = 41.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="PlanetName" type="Label" parent="Panel2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Planet "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AdvanceButton" type="Button" parent="."]
+margin_left = 302.0
+margin_top = 290.0
+margin_right = 707.0
+margin_bottom = 382.0
+text = "Advance"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel3" type="Panel" parent="."]
+margin_left = 581.0
+margin_top = 535.0
+margin_right = 760.0
+margin_bottom = 575.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YearLabel" type="Label" parent="Panel3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Year 1"
+[connection signal="pressed" from="AdvanceButton" to="." method="_on_AdvanceButton_pressed"]
