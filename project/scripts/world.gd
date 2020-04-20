@@ -27,6 +27,9 @@ func new_planet():
 	if final_creature.type == TYPE.ANIMAL:
 		final_creature.eats = TYPE.ANIMAL
 		final_creature.size = first_creature.size
+		
+func creature_died(creature):
+	life.erase(creature)
 	
 func new_random_creature():
 	var new_creature = creature_class.new()
@@ -69,9 +72,18 @@ func advance_one_month():
 	var counts = perform_deaths_and_births()
 
 	# Now they need to eat...
-	for creature in life:
-		pass
+	# Carnivores first I guess
+	# Yeah there's ordering issues, so shoot me
+	for predator in life:
+		if predator.type == TYPE.ANIMAL:
+			for prey in life:
+				if prey != predator:
+					if prey.size == predator.size && prey.type == predator.eats:
+						prey.number -= predator.number / counts[[predator.size, prey.type]]
 				
+				
+		# O(n^2) oh yeah baby
+		
 func perform_deaths_and_births():
 	# Remove and add creatures roughly based on rates
 	# Yes I made up all of these numbers randomly

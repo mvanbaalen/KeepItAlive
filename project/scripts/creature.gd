@@ -8,7 +8,7 @@ signal updated
 var size
 var type
 var eats
-var number=0 setget set_number
+var number=1 setget set_number
 var number_on_next_tick # oops we need a buffer?
 
 func _init():
@@ -28,7 +28,9 @@ func randomize_properties():
 					Helpers.random_type(TYPE))
 
 func set_number(new_value):
-	number = new_value
+	number = clamp(new_value, 0, new_value)
+	if number == 0:
+		Planet.creature_died(self)#signals...
 	emit_signal("updated")
 	
 func get_full_type():
@@ -42,4 +44,9 @@ func get_full_type():
 			
 func get_description():
 	return SIZE.keys()[size].capitalize() + " " + get_full_type()
+	
+func get_icon():
+	var first_letter = SIZE.keys()[size].capitalize().substr(0, 1)
+	var second_letter = get_full_type().substr(0, 1)
+	return first_letter + "/" + second_letter
 	

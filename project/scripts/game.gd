@@ -17,6 +17,7 @@ func advance_one_year():
 
 func add_new_creature_details(creature):
 	var details = details_scene.instance()
+	details.get_node("Icon").text = creature.get_icon()
 	details.get_node("Name").text = creature.name
 	details.get_node("Count").text = str(creature.number)
 	details.set_referent(creature)
