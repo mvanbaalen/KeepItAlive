@@ -13,6 +13,9 @@ var number_on_next_tick # oops we need a buffer?
 
 func _init():
 	name = Helpers.generate_name()
+	
+func randomize_size():
+	size = Helpers.random_type(SIZE)
 
 func set_properties(new_size, new_type, new_eats):
 	size = new_size

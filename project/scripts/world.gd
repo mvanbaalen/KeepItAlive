@@ -19,14 +19,21 @@ func _ready():
 func new_planet():
 	planet_name = Helpers.generate_name()
 	life = []
-	for _i in range(3):
-		new_random_creature()
+	var first_creature = new_random_creature()
+	first_creature.type = TYPE.PLANT
+	var second_creature = new_random_creature()
+	second_creature.set_properties(first_creature.size, TYPE.ANIMAL, TYPE.PLANT)
+	var final_creature = new_random_creature()
+	if final_creature.type == TYPE.ANIMAL:
+		final_creature.eats = TYPE.ANIMAL
+		final_creature.size = first_creature.size
 	
 func new_random_creature():
 	var new_creature = creature_class.new()
 	new_creature.randomize_properties()
 	new_creature.number = randi() % 2000 + 9000
 	life.append(new_creature)
+	return new_creature
 	
 func new_creature_from_dialog(new_size, new_type):
 	var final_size; var final_type; var final_diet

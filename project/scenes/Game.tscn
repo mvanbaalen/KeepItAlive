@@ -125,10 +125,10 @@ __meta__ = {
 }
 
 [node name="AdvanceButton" type="Button" parent="."]
-margin_left = 306.081
-margin_top = 151.242
-margin_right = 711.081
-margin_bottom = 243.242
+margin_left = 312.731
+margin_top = 229.142
+margin_right = 717.731
+margin_bottom = 321.142
 text = "Advance"
 __meta__ = {
 "_edit_use_anchors_": false
