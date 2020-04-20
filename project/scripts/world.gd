@@ -21,12 +21,17 @@ func new_planet():
 	life = []
 	var first_creature = new_random_creature()
 	first_creature.type = TYPE.PLANT
+	first_creature.number = randi() % 2000 + 9000
 	var second_creature = new_random_creature()
 	second_creature.set_properties(first_creature.size, TYPE.ANIMAL, TYPE.PLANT)
+	second_creature.number = randi() % 200 + 900
 	var final_creature = new_random_creature()
 	if final_creature.type == TYPE.ANIMAL:
 		final_creature.eats = TYPE.ANIMAL
 		final_creature.size = first_creature.size
+		final_creature.number = randi() % 20 + 90
+	else:
+		final_creature.number = randi() % 2000 + 9000
 		
 func creature_died(creature):
 	life.erase(creature)
@@ -34,12 +39,12 @@ func creature_died(creature):
 func new_random_creature():
 	var new_creature = creature_class.new()
 	new_creature.randomize_properties()
-	new_creature.number = randi() % 2000 + 9000
 	life.append(new_creature)
 	return new_creature
 	
 func new_creature_from_dialog(new_size, new_type):
 	var final_size; var final_type; var final_diet
+	var new_creature = creature_class.new()
 	#Oh you know we love this kind of logic...
 	if new_size == "Small":
 		final_size = SIZE.SMALL
@@ -47,19 +52,21 @@ func new_creature_from_dialog(new_size, new_type):
 		final_size = SIZE.MEDIUM
 	else:
 		final_size = SIZE.LARGE
+		
 	if new_type == "Plant":
 		final_type = TYPE.PLANT
 		final_diet = null
+		new_creature.number = randi() % 200 + 900
 	elif new_type == "Herbivore":
 		final_type = TYPE.ANIMAL
 		final_diet = TYPE.PLANT
+		new_creature.number = randi() % 20 + 90
 	else:
 		final_type = TYPE.ANIMAL
 		final_diet = TYPE.ANIMAL
+		new_creature.number = randi() % 2 + 9
 		
-	var new_creature = creature_class.new()
 	new_creature.set_properties(final_size, final_type, final_diet)
-	new_creature.number = randi() % 20 + 90
 	life.append(new_creature)
 	return new_creature
 	
@@ -113,8 +120,8 @@ func perform_deaths_and_births():
 		else:
 			if creature.eats == TYPE.PLANT:
 				if creature.size == SIZE.SMALL:
-					creature.number -= int(creature.number * per_month)
-					creature.number += int(creature.number * 2 * per_month)
+					creature.number -= int(creature.number * 2 * per_month)
+					creature.number += int(creature.number * 3 * per_month)
 					counts[[SIZE.SMALL, TYPE.ANIMAL]] += 1
 				elif creature.size == SIZE.MEDIUM:
 					creature.number -= int(creature.number * 1/4 * per_month)
