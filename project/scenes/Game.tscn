@@ -1,13 +1,26 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/game.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://font.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://scripts/time_indicator.gd" type="Script" id=3]
 [ext_resource path="res://font_20.tres" type="DynamicFont" id=4]
 
-[sub_resource type="DynamicFont" id=1]
-size = 17
-font_data = ExtResource( 3 )
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.768627, 0.768627, 0.768627, 1 )
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends ItemList
+
+func _ready():
+	select (0, true)
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends ItemList
+
+func _ready():
+	select (0, true)
+"
 
 [node name="Game" type="Control"]
 anchor_right = 1.0
@@ -93,10 +106,9 @@ __meta__ = {
 }
 
 [node name="Panel2" type="Panel" parent="."]
-margin_left = 274.947
-margin_top = -0.0526276
-margin_right = 793.947
-margin_bottom = 39.9474
+margin_left = 275.0
+margin_right = 799.0
+margin_bottom = 40.0
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -107,6 +119,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 2 )
 text = "Planet "
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -122,56 +135,108 @@ __meta__ = {
 }
 
 [node name="Panel3" type="Panel" parent="."]
-margin_left = 551.072
-margin_top = 337.746
-margin_right = 730.072
-margin_bottom = 377.746
+margin_left = 621.186
+margin_top = 39.8946
+margin_right = 800.186
+margin_bottom = 134.895
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
+[node name="ProgressBar" type="ProgressBar" parent="Panel3"]
+anchor_right = 1.0
+margin_right = 1.52588e-05
+margin_bottom = 10.0
+custom_styles/fg = SubResource( 3 )
+max_value = 5.0
+percent_visible = false
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="Panel3/ProgressBar"]
+wait_time = 5.0
+autostart = true
+
 [node name="YearLabel" type="Label" parent="Panel3"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -37.0
+margin_bottom = -11.0
+custom_fonts/font = ExtResource( 4 )
+text = "Month 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StreakLabel" type="Label" parent="Panel3"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -8.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 4 )
+text = "Streak 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BestLabel" type="Label" parent="Panel3"]
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Year 1"
+margin_top = -26.0
+custom_fonts/font = ExtResource( 4 )
+text = "Best 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CreatePanel" type="Panel" parent="."]
-margin_left = 387.158
-margin_top = 446.684
-margin_right = 800.158
-margin_bottom = 595.684
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -224.0
+margin_top = -148.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Sizes" type="ItemList" parent="CreatePanel"]
-margin_right = 81.0
-margin_bottom = 147.0
-custom_fonts/font = SubResource( 1 )
+margin_right = 95.0
+margin_bottom = 100.0
+custom_fonts/font = ExtResource( 4 )
 items = [ "Small", null, false, "Medium", null, false, "Large", null, false ]
+script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Types" type="ItemList" parent="CreatePanel"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 100.0
-margin_top = -77.6578
-margin_right = 174.0
-margin_bottom = 71.3422
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -124.0
+margin_bottom = 100.0
+custom_fonts/font = ExtResource( 4 )
 items = [ "Plant", null, false, "Herbivore", null, false, "Carnivore", null, false ]
+script = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Button" type="Button" parent="CreatePanel"]
-margin_left = 187.368
-margin_top = 47.3685
-margin_right = 366.368
-margin_bottom = 94.3685
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -47.0
 custom_fonts/font = ExtResource( 2 )
 text = "Introduce"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="AdvanceButton" to="." method="_on_AdvanceButton_pressed"]
+[connection signal="timeout" from="Panel3/ProgressBar/Timer" to="." method="_on_month_timer_timeout"]
 [connection signal="pressed" from="CreatePanel/Button" to="." method="_on_introduce_button_pressed"]
